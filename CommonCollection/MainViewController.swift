@@ -83,6 +83,9 @@ class MainViewController : BaseViewController {
                 self.commonLoadingView?.dismiss()
                 self.commonLoadingView = nil
                 
+                /*
+                 Timer 초기화
+                 */
                 self.timer?.invalidate()
                 self.timer = nil
                 
@@ -101,6 +104,7 @@ class MainViewController : BaseViewController {
             .when(.recognized)
             .bind(onNext : { _ in
                 /*
+                 case 1) 버튼이 2개일때
                  Builder instance 생성 -> Method Chaining 기법을 통해서 설정 -> Build [CommonModal] -> show
                  */
                 CommonModal.Builder()
@@ -125,6 +129,9 @@ class MainViewController : BaseViewController {
         commonModalVersion_2.rx.tapGesture()
             .when(.recognized)
             .bind(onNext : { _ in
+                /*
+                 case 2) 버튼이 1개 일때
+                 */
                 CommonModal.Builder()
                     .setTitle("알림")
                     .setMessage("이것은 CommonModalVersion_2 입니다.")
@@ -143,6 +150,9 @@ class MainViewController : BaseViewController {
         commonModalVersion_3.rx.tapGesture()
             .when(.recognized)
             .bind(onNext : { _ in
+                /*
+                 case 3) 이미지가 존재 할 때
+                 */
                 CommonModal.Builder()
                     .setTitle("알림")
                     .setImage(UIImage(named: "background"), width: 32, height: 32)
@@ -160,6 +170,9 @@ class MainViewController : BaseViewController {
         commonBottomModal.rx.tapGesture()
             .when(.recognized)
             .bind(onNext : { _ in
+                /*
+                 각 버튼에 대한 Action 정의
+                 */
                 let swiftAction = CommoBottomModalAction(
                     title: "SWIFT",
                     titleColor: .systemPink
@@ -173,6 +186,10 @@ class MainViewController : BaseViewController {
                     print("HELLO KOTLIN")
                 }
                 
+                
+                /*
+                 각 버튼의 액션과 속성을 가진 actions 설정
+                 */
                 let actions = [swiftAction, kotlinAction]
                 CommonBottomModal.Builder()
                     .setActions(actions)
